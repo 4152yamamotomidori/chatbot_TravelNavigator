@@ -1,0 +1,319 @@
+/*/////////////////////////////////////////////////
+//LINE風チャット画面(会話方式)を記事に表示する方法
+/////////////////////////////////////////////////*/
+
+
+
+.line__container {
+  position: relative;
+  padding: 0;
+  background-color: #7494c0;
+  overflow: hidden;
+  max-width: 400px;
+  margin: 20px auto;
+  font-size: 80%;
+}
+
+
+/* タイトル部分 */
+.line__container .line__title {
+  background: #66CDAA;
+  padding: 10px;
+  text-align: center;
+  font-size: 150%;
+  color: #ffffff;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+/* 最初の質問 */
+.line__container .line__title.line__question-container{
+　 display: flex; /* 横並びにする */
+  align-items: center; /* 要素を垂直方向に中央揃えにする（必要に応じて変更） */
+  justify-content: space-between; /* 要素を水平方向に均等に配置する */
+  position: absolute;
+  top: 0;
+  background-color: white;
+  width: 100%;
+  left: 0;
+  padding: 2px;
+}
+
+.line__form {
+  display: flex; /* フォーム内の要素も横並びにする */
+  gap: 5px; /* 要素間の間隔を調整 */
+}
+
+
+/* 会話部分 */
+.line__container .line__contents {
+  padding: 10px;
+  overflow: hidden;
+  line-height: 135%;
+}
+
+.line__container .scroll {
+  height: 500px;
+  overflow-y: scroll;
+}
+
+
+/* スタンプ画像最大幅 */
+.line__container .stamp img {
+  max-width:150px;
+}
+
+/* 相手の会話 */
+.line__container .line__left {
+    width: 100%;
+    position: relative;
+    display: block;
+    margin-bottom: 35px;
+    max-width: 80%;
+    clear: both;
+}
+
+/* アイコン画像 */
+.line__container .line__left figure {
+    width: 50px;
+    position: absolute;
+    top: 15px;
+    left: 0;
+    padding: 0;
+    margin: 0;
+
+}
+
+/* 正方形を用意 */
+.line__container .line__left figure img{
+    border-radius: 50%;
+    width: 50px;
+    height: 50px;
+}
+
+.line__container .line__left .line__left-text {
+  margin-left: 70px;
+}
+
+.line__container .line__left .line__left-text .name {
+  font-size: 80%;
+  color: ##008080;
+}
+
+/* コメントエリア */
+.line__container .line__left .text {
+  margin-top: 10px;
+  position: relative;
+  padding: 10px;
+  border-radius: 20px;
+  background-color: #ffffff;
+}
+
+/* 吹き出し */
+.line__container .line__left .text::after {
+  margin-top: 10px;
+  content: '';
+  position: absolute;
+  display: block;
+  width: 0;
+  height: 0;
+  left: -10px;
+  top: 10px;
+  border-right: 20px solid #ffffff;
+  border-top: 10px solid transparent;
+  border-bottom: 10px solid transparent;
+}
+
+
+
+/* 自分の会話 */
+.line__container .line__right {
+    position: relative;
+    display: block;
+    margin: 5px 0;
+    max-width: 75%;
+    float: right;
+    margin-right: 15px;
+    clear: both;
+}
+
+/* コメントエリア */
+.line__container .line__right .text {
+  padding: 10px;
+  border-radius: 20px;
+  background-color: #8de055;
+  margin: 0;
+  margin-left: 80px;
+}
+
+/* 吹き出し */
+.line__container .line__right .text::after {
+  content: '';
+  position: absolute;
+  display: block;
+  width: 0;
+  height: 0;
+  right: -10px;
+  top: 10px;
+  border-left: 20px solid #8de055;
+  border-top: 10px solid transparent;
+  border-bottom: 10px solid transparent;
+}
+
+/* 自分がスタンプを送る時 */
+.line__container .line__right .stamp {
+  position: relative;
+  margin-left: 80px;
+}
+
+/* 既読エリア */
+.line__container .line__right .date {
+  content: '';
+  position: absolute;
+  display: block;
+  width: 100px;
+  text-align: right;
+  left: -30px;
+  bottom: 0px;
+  font-size: 80%;
+  color: #ffffff;
+}
+
+/* 入力エリア */
+.line__form-container {
+  position: absolute;
+  bottom: 0;
+  background-color: white;
+  width: 95%;
+  left: 0;
+  padding: 2px;
+}
+
+.line__input {
+  width: 90%;
+  border: none;
+  background-color: #f1f1f1;
+  border-radius: 10px;
+  line-height: 2;
+}
+
+/* ボタンコンテナ */
+.buttons-container {
+  display: flex; /* 横並べ */
+  justify-content: space-between; /* 真ん中に均等に横並び */
+  margin-top: 10px;
+}
+
+/* 観光地、ホテル、グルメ、お土産ボタンのスタイル */
+.line__choice {
+  background-color: #4CAF50; /* 背景色 */
+  color: #ffffff; /* 文字色 */
+  text-align: center; /* 文字の置き場所真ん中 */
+  cursor: pointer; /* カーソル */
+  font-size: 60%; /* 文字のサイズ親要素と比べての何パーセントか */
+  padding: 10px;
+  border-radius: 3px;
+  border: 1px solid #ffffff;
+}
+
+/* リセットボタンのスタイル */
+.line__choice[value="リセット"] {
+  background-color: #95a5a6;
+}
+
+
+/* SNSロゴの配置*/
+.sns-logo{
+  display: flex; /* 横並べ */
+  margin-top: 10px;
+}
+
+/* 各SNSロゴのスタイル */
+.sns-logo a {
+  margin-right: 10px; /* ロゴ同士の横の間隔を調整 */
+}
+
+
+/* 行先くじの画像 */
+.line__title img {
+  margin-left: 10px;
+}
+
+/* 行先くじのフォント */
+.lottery-text {
+    font-size: 10px;
+    margin: 0;
+}
+
+
+/* これ以降lottery.htmlのcss */
+/* ページ全体のフォント */
+.lottery_page {
+    font-family: "Yu Gothic", "游ゴシック", YuGothic, "游ゴシック体";
+}
+
+.lottery_title {
+    text-align: center;
+    padding: 20px;
+    background-color: #f8f9fa; /* 背景色を指定 */
+    border-radius: 10px; /* 角を丸くする */
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* 影を追加 */
+}
+
+.lottery_title p {
+    font-size: 18px;
+    margin: 10px;
+}
+
+/* くじのボタン */
+.lottery-button{
+text-align: center;
+margin-top:20px;
+}
+
+/* くじの結果行先*/
+.lottery-destination {
+    font-size: 20px;
+    margin: 10px;
+    text-align: center;
+}
+/* くじの結果行先の説明*/
+.lottery-destination-text {
+    font-size: 15px;
+    margin: 10px;
+    max-width: 400px;
+    margin-left: auto;
+    margin-right: auto;
+    text-align: center;
+}
+
+/* ホテル全体の表示 */
+.hotel-deck {
+    display: flex;　 /* 横並べ */
+    flex-wrap: wrap;　 /* 文章途中で折り返す */
+    margin-left: -10px; /* マージンの調整 */
+}
+
+/* ホテルを並べるところ */
+.hotel {
+    flex-basis: calc(20% - 20px);
+    margin: 10px;
+    box-sizing: border-box;
+}
+
+/* ホテルの名前 */
+.hotel-name {
+    font-weight: bold;
+    font-size: 15px;
+}
+
+/* ホテルの説明 */
+.hotel-text {
+    font-size: 13px;
+}
+
+/* レビューの表示フォント */
+.hotel-review {
+    font-size: 10px;
+}

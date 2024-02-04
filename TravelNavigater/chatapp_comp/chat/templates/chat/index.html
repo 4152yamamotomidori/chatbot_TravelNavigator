@@ -1,0 +1,129 @@
+<!DOCTYPE html>
+{% load static %}
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title>chat</title>
+    <link rel="stylesheet" href="{% static 'css/style.css' %}">
+    <style>
+         .line__container{
+            background-image: url('{{ background_image }}');
+            background-size: cover;
+            background-position: center;
+            background-repeat: no-repeat;
+        }
+    </style>
+</head>
+<body>
+{% block contents %}
+<div class="line__container">
+    <div class="line__title">
+        旅行ナビゲーター
+         <div class="destination-lottery">
+                    <a href= "{% url 'chat:lottery' %}">
+                        <img src="{% static 'images/roadmap.gif' %}"  width="50px" >
+                    </a>
+                    <p class="lottery-text">行先くじ</p>
+         </div>
+    </div>
+        <div class="line__question-container">
+            <form class="line__form" action="{% url 'chat:post' %}" method="post">
+                    {% csrf_token %}
+                <input class="line__input" size="20" type="text" name="departure" required placeholder="出発地は？">
+                <input class="line__input" size="20" type="text" name="destination" required placeholder="目的地は？">
+                <input class="line__input" size="20" type="text" name="stay" required placeholder="何泊ですか？">
+                <input class="line__submit" type="submit" value="→">
+            </form>
+        </div>
+    <div class="line__contents scroll" id="chat-container">
+        <div class="line__left">
+             <figure>
+                <img src="{% static 'images/travelNavigator1.gif' %}"/>
+            </figure>
+            <div class="line__left-text">
+                <div class="name">旅行ナビさん</div>
+                <div class="text">旅行プランを提案します。上の入力フォームを入力してください。</div>
+            </div>
+        </div>
+
+        {% for message in messages %}
+        <div class="line__right">
+            <div class="text">{{ message.contents }}</div>
+        </div>
+        <div class="line__left">
+            <figure>
+                <img src="{% static 'images/travelNavigator1.gif' %}"/>
+            </figure>
+            <div class="line__left-text">
+                <div class="name">旅行ナビさん</div>
+                <div class="text">{{message.response}}</div>
+                <div class="text">
+                    <div class="youtube">
+                        <div class="youtube-thumbails">
+                            <a href="{{message.url_1}}" target="_blank">
+                                <img src="{{message.thumbnails_1}}"  width="100px" ></a>
+                        </div>
+                        <div class="youtube-title">
+                            <a href="{{message.url_1}}" target="_blank" class="btn btn-primary">{{ message.title_1 }}</a>
+                        </div>
+                        <div class="youtube-thumbails">
+                            <a href="{{message.url_2}}" target="_blank">
+                                <img src="{{message.thumbnails_2}}"  width="100px" ></a>
+                        </div>
+                        <div class="youtube-title">
+                            <a href="{{message.url_2}}" target="_blank" class="btn btn-primary">{{ message.title_2 }}</a>
+                        </div>
+                        <div class="youtube-thumbails">
+                            <a href="{{message.url_3}}" target="_blank">
+                                <img src="{{message.thumbnails_3}}"  width="100px" ></a>
+                        </div>
+                        <div class="youtube-title">
+                            <a href="{{message.url_3}}" target="_blank" class="btn btn-primary">{{ message.title_3 }}</a>
+                        </div>
+                    </div>
+                </div>    　　
+                <div class="text">もっと詳しく知りたいことについてクリックしてください。新しく会話を始めるためにはタイトル下のフォームに再度入力してください。最新の情報が知りたい場合は、各SNSのアイコンをクリックして調べてください。</div>
+                <form action="{% url 'chat:post' %}" method="post">
+                    {% csrf_token %}
+                    <div class="buttons-container">
+                        <input class="line__choice" type="submit" name="tourist_spot" value="観光地">
+                        <input class="line__choice" type="submit" name="hotel" value="ホテル">
+                        <input class="line__choice" type="submit" name="gourmet" value="グルメ">
+                        <input class="line__choice" type="submit" name="souvenir" value="お土産">
+<!--                        <input class="line__choice" type="submit" name="reset" value="リセット">-->
+                    </div>
+                </form>
+                <div class="sns-logo">
+                    <a href="https://www.youtube.com/?gl=JP&hl=ja" target="_blank">
+                        <img src="{% static 'images/youtube.png' %}" alt="youtubeのロゴ" width="30px" >
+                    </a>
+                    <a href="https://www.instagram.com/" target="_blank">
+                        <img src="{% static 'images/Instagram.png' %}" alt="Instagramのロゴ" width="30px">
+                    </a>
+                    <a href="https://www.tiktok.com/ja-JP" target="_blank">
+                        <img src="{% static 'images/tik-tok.png' %}" alt="tik-tokのロゴ" width="30px">
+                    </a>
+                </div>
+
+            </div>
+        </div>
+        {% endfor %}
+<!--        <div class="line__form-container">-->
+<!--            <form class="line__form" action="{% url 'chat:post' %}" method="post">-->
+<!--                {% csrf_token %}-->
+<!--                <input class="line__input" size="20" type="text" name="contents" required placeholder="こちらにメッセージを入力してください">-->
+<!--                <input class="line__submit" type="submit" value="→">-->
+<!--            </form>-->
+<!--        </div>-->
+
+    </div>
+{% endblock %}
+</div>
+<!--画面起動時にスクロールバーを一番下の状態で表示する-->
+    <script>
+        let chatContainer = document.getElementById('chat-container');
+        chatContainer.scrollTop = chatContainer.scrollHeight;
+    </script>
+</body>
+</html>
+

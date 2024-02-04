@@ -1,0 +1,48 @@
+{% extends 'chat/index.html' %}
+{% load static %}
+{% block contents %}
+<div class="lottery_page">
+    <div class="my-3">
+        <a href="{% url 'chat:index' %}">旅行ナビゲーターに戻る</a>
+    </div>
+    <div class="lottery_title">
+        <p>ここは行先くじです。</p>
+        <p>画像をクリックするとランダムでおすすめの行先が表示されます。</p>
+    </div>
+    <div>
+        <form action="{% url 'chat:lottery' %}" method="post">
+        {% csrf_token %}
+            <div class="lottery-button">
+                <button  type="submit" name="travel_lottery" >
+                    <img src="{% static 'images/icons8-worldwide-location.gif' %}" alt="行先くじ">
+                </button>
+
+            </div>
+        </form>
+    </div>
+
+    <div class="lottery-destination">{{ destination1 }}
+        <p class="lottery-destination-text">{{destination_text}}</p>
+    </div>
+
+    <div class="hotel-deck">
+        {% for hotel_data in hotels_data %}
+            <div class="hotel">
+                <a href="{{ hotel_data.hotelInformationUrl }}" target="_blank" class="btn btn-primary">
+                    <img src="{{hotel_data.hotelImageUrl}}" alt="My Image" width="200px"></a>
+                <div class="hotel-body">
+                     <div class="hotel-name">
+                        <a href="{{ hotel_data.hotelInformationUrl }}" target="_blank" class="btn btn-primary">
+                            {{ hotel_data.hotelName }}</a>
+                     </div>
+                        <p class="hotel-text">{{ hotel_data.hotelSpecial }}</p>
+                        <p class="hotel-review">レビュー数: {{ hotel_data.reviewCount }}</p>
+                        <p class="hotel-review">レビュー平均: {{ hotel_data.reviewAverage }}</p>
+
+                </div>
+            </div>
+        {% endfor %}
+    </div>
+
+{% endblock %}
+</div>
